@@ -1,18 +1,14 @@
-'use strict'
+'use strict';
 
-const monitoring = require('./monitor.js');
+const monitoring = require('./monitor');
 const express = require('express');
+const api = require('./api');
 
 monitoring.startMonitoring(30);
 
 const app = express();
-
 app.use(express.static(__dirname + '/App'));
-
-app.get('/api/getTemperatures', (req, res) => {
-  res.json(monitoring.getLast5Temperatures())
-})
-
+app.use('/api', api);
 app.get('*', (req, res) => {
   res.sendFile(__dirname + '/App/index.html');
 });
