@@ -2,7 +2,7 @@ import {HttpClient} from "aurelia-fetch-client";
 
 export class App {
 
-  temperature: string = '';
+  temperature: string = 'Hetkeinfo ei ole kättesaadaval';
 
   activate() {
     const client = new HttpClient();

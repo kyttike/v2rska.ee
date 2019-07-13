@@ -84,6 +84,9 @@
         ]
       }
     ],
+    "copyFiles": {
+      "node_modules/@fortawesome/fontawesome-free/webfonts/*": "@fortawesome/fontawesome-free/webfonts"
+    },
     "loader": {
       "type": "system",
       "configTarget": "vendor-bundle.js",
