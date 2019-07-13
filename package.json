@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/kyttike/v2rska.ee#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "axios": "^0.19.0",
+    "express": "^4.17.1",
+    "xml-query": "^1.5.0",
+    "xml-reader": "^2.4.3"
   }
 }
