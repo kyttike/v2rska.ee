@@ -2,24 +2,20 @@ import {inject} from 'aurelia-dependency-injection';
 import {Project, ProjectItem, CLIOptions, UI} from 'aurelia-cli';
 
 @inject(Project, CLIOptions, UI)
-export default class BindingBehaviorGenerator {
-  constructor(project, options, ui) {
-    this.project = project;
-    this.options = options;
-    this.ui = ui;
-  }
+export default class AttributeGenerator {
+  constructor(private project: Project, private options: CLIOptions, private ui: UI) { }
 
   async execute() {
     const name = await this.ui.ensureAnswer(
       this.options.args[0],
-      'What would you like to call the binding behavior?'
+      'What would you like to call the custom attribute?'
     );
 
     let fileName = this.project.makeFileName(name);
     let className = this.project.makeClassName(name);
 
-    this.project.bindingBehaviors.add(
-      ProjectItem.text(`${fileName}.js`, this.generateSource(className))
+    this.project.attributes.add(
+      ProjectItem.text(`${fileName}.ts`, this.generateSource(className))
     );
 
     await this.project.commitChanges();
@@ -27,15 +23,16 @@ export default class BindingBehaviorGenerator {
   }
 
   generateSource(className) {
-    return `export class ${className}BindingBehavior {
-  bind(binding, source) {
-    //
-  }
+    return `import {autoinject} from 'aurelia-framework';
 
-  unbind(binding, source) {
+@autoinject()
+export class ${className}CustomAttribute {
+  constructor(private element: Element) { }
+
+  valueChanged(newValue, oldValue) {
     //
   }
 }
-`
+`;
   }
 }

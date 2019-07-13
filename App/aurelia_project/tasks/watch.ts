@@ -1,8 +1,8 @@
-import gulp from 'gulp';
-import minimatch from 'minimatch';
-import gulpWatch from 'gulp-watch';
-import debounce from 'debounce';
-import project from '../aurelia.json';
+import * as gulp from 'gulp';
+import * as minimatch from 'minimatch';
+import * as gulpWatch from 'gulp-watch';
+import * as debounce from 'debounce';
+import * as project from '../aurelia.json';
 import transpile from './transpile';
 import processMarkup from './process-markup';
 import processCSS from './process-css';
@@ -115,7 +115,7 @@ let refresh = debounce(() => {
   toExecute();
 }, debounceWaitTime);
 
-function log(message) {
+function log(message: string) {
   console.log(message);
 }
 

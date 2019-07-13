@@ -10,20 +10,13 @@
     "bindingBehaviors": "resources/binding-behaviors"
   },
   "transpiler": {
-    "id": "babel",
-    "fileExtension": ".js",
-    "options": {
-      "plugins": [
-        [
-          "@babel/plugin-transform-modules-amd",
-          {
-            "loose": true
-          }
-        ]
-      ]
-    },
+    "id": "typescript",
+    "fileExtension": ".ts",
+    "dtsSource": [
+      "./types/**/*.d.ts"
+    ],
     "source": [
-      "src/**/*.js"
+      "src/**/*.ts"
     ]
   },
   "markupProcessor": {
@@ -33,7 +26,7 @@
   },
   "cssProcessor": {
     "source": [
-      "src/**/*.less"
+      "src/**/*.scss"
     ]
   },
   "jsonProcessor": {
@@ -72,7 +65,6 @@
       {
         "name": "vendor-bundle.js",
         "prepend": [
-          "node_modules/whatwg-fetch/dist/fetch.umd.js",
           "node_modules/promise-polyfill/dist/polyfill.min.js",
           "node_modules/systemjs/dist/system.js"
         ],
@@ -106,9 +98,6 @@
           "stub": false
         }
       ]
-    },
-    "copyFiles": {
-      "node_modules/font-awesome/fonts/*": "font-awesome/fonts"
     }
   },
   "packageManager": "npm"

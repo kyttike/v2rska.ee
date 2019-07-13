@@ -3,11 +3,7 @@ import {Project, ProjectItem, CLIOptions, UI} from 'aurelia-cli';
 
 @inject(Project, CLIOptions, UI)
 export default class ElementGenerator {
-  constructor(project, options, ui) {
-    this.project = project;
-    this.options = options;
-    this.ui = ui;
-  }
+  constructor(private project: Project, private options: CLIOptions, private ui: UI) { }
 
   async execute() {
     const name = await this.ui.ensureAnswer(
@@ -19,7 +15,7 @@ export default class ElementGenerator {
     let className = this.project.makeClassName(name);
 
     this.project.elements.add(
-      ProjectItem.text(`${fileName}.js`, this.generateJSSource(className)),
+      ProjectItem.text(`${fileName}.ts`, this.generateJSSource(className)),
       ProjectItem.text(`${fileName}.html`, this.generateHTMLSource(className))
     );
 

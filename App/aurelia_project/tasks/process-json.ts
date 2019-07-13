@@ -1,5 +1,5 @@
-import gulp from 'gulp';
-import project from '../aurelia.json';
+import * as gulp from 'gulp';
+import * as project from '../aurelia.json';
 import {build} from 'aurelia-cli';
 
 export default function processJson() {

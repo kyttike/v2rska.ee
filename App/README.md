@@ -12,8 +12,13 @@ To open browser automatically, do `au run --open`.
 
 To change dev server port, do `au run --port 8888`.
 
-To install new npm packages automatically, do `au run --auto-install`
 
 ## Build for production
 
 Run `au build --env prod`.
+
+## Unit tests
+
+Run `au test` (or `au jest`).
+
+To run in watch mode, `au test --watch` or `au jest --watch`.

@@ -1,5 +1,5 @@
-import gulp from 'gulp';
-import project from '../aurelia.json';
+import * as gulp from 'gulp';
+import * as project from '../aurelia.json';
 import {CLIOptions, build as buildCLI} from 'aurelia-cli';
 import transpile from './transpile';
 import processMarkup from './process-markup';
