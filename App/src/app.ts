@@ -6,14 +6,15 @@ export class App {
 
   activate() {
     const client = new HttpClient();
+    const baseurl = 'http://localhost:3000/api/';
     client.configure(config => {
       config
-        .withBaseUrl('/api/');
+        .withBaseUrl(baseurl);
     });
 
     client.get('temperature')
       .then(result => result.json())
-      .then(result => this.temperature = result.temperature)
+      .then(result => this.temperature = result.temperature / 10 + '')
       .catch(error => console.warn(error));
   }
 }
