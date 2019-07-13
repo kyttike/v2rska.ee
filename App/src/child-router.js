@@ -1,8 +1,8 @@
 
-export class App {
+export class ChildRouter {
+  heading = 'Child Router';
+
   configureRouter(config, router) {
-    config.title = 'Aurelia';
-    config.options.pushState = true;
     config.map([
       {
         route: ['', 'welcome'],
