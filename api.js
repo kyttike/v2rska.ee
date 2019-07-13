@@ -5,14 +5,12 @@ const database = require('./database');
 
 router.get('/temperature', (req, res) => {
   const temperatures = monitoring.getRealtimeTemperatures();
-  res.send({
-    temperature: temperatures.length ? temperatures[temperatures.length - 1] : null,
-  })
+  res.send(temperatures.length ? temperatures[temperatures.length - 1] : null);
 });
 
 router.get('/temperatures', (req, res) => {
   res.send({
-    last5Temperatures: monitoring.getRealtimeTemperatures(),
+    temperatures: monitoring.getRealtimeTemperatures(),
   })
 });
 

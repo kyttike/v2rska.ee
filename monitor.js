@@ -8,6 +8,9 @@ const moment = require('moment');
 let realtimeTemperatures = [];
 
 const deviceAddress = config.monitoringURL;
+const totalWithSkips = 12;
+const realTimeDataMaxLength = 60;
+let counter = totalWithSkips;
 
 const startMonitoring = (durationInSeconds = 60) => {
   getTemperatureData();
@@ -19,9 +22,16 @@ const getTemperatureData = () => {
     .then(response => {
       const parsedXml = xmlReader.parseSync(response.data);
       const currentTemp = Number(xmlQuery(parsedXml).find('Temperature1').text().split('&#176;')[0]) * 10;
-      writeTemperatureToDatabase(currentTemp);
-      realtimeTemperatures.push(currentTemp);
-      if (realtimeTemperatures.length > 5) {
+      if (counter >= totalWithSkips) {
+        writeTemperatureToDatabase(currentTemp);
+        counter = 0;
+      }
+      realtimeTemperatures.push({
+        temperatures: currentTemp,
+        time: moment().format('YYYY-MM-DD HH:mm:ss'),
+      });
+      counter++;
+      if (realtimeTemperatures.length > realTimeDataMaxLength) {
         realtimeTemperatures = realtimeTemperatures.slice(1);
       }
     })
