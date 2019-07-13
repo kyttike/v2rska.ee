@@ -3,7 +3,7 @@ const xmlReader = require('xml-reader');
 const xmlQuery = require('xml-query');
 const config = require('./config');
 
-let last5Temperatures = [];
+let realtimeTemperatures = [];
 
 const deviceAddress = config.monitoringURL;
 
@@ -16,17 +16,18 @@ const getTemperatureData = () => {
   return axios.get(deviceAddress)
     .then(response => {
       const parsedXml = xmlReader.parseSync(response.data);
-      currentTemp = xmlQuery(parsedXml).find('Temperature1').text().split('&#176;')[0];
-      last5Temperatures.push(currentTemp);
-      if (last5Temperatures.length > 5) {
-        last5Temperatures = last5Temperatures.slice(1);
+      const currentTemp = Number(xmlQuery(parsedXml).find('Temperature1').text().split('&#176;')[0]) * 10;
+      realtimeTemperatures.push(currentTemp);
+      if (realtimeTemperatures.length > 5) {
+        realtimeTemperatures = realtimeTemperatures.slice(1);
       }
-    });
+    })
+    .catch(error => console.warn(error));
 };
 
-const getLast5Temperatures = () => {
-  return last5Temperatures;
+const getRealtimeTemperatures = () => {
+  return realtimeTemperatures;
 };
 
 exports.startMonitoring = startMonitoring;
-exports.getLast5Temperatures = getLast5Temperatures;
+exports.getRealtimeTemperatures = getRealtimeTemperatures;

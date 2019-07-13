@@ -3,7 +3,7 @@ const monitoring = require('./monitor');
 const router = express.Router();
 
 router.get('/temperature', (req, res) => {
-  const temperatures = monitoring.getLast5Temperatures();
+  const temperatures = monitoring.getRealtimeTemperatures();
   res.send({
     temperature: temperatures.length ? temperatures[temperatures.length - 1] : null,
   })
@@ -11,7 +11,7 @@ router.get('/temperature', (req, res) => {
 
 router.get('/temperatures', (req, res) => {
   res.send({
-    last5Temperatures: monitoring.getLast5Temperatures(),
+    last5Temperatures: monitoring.getRealtimeTemperatures(),
   })
 });
 
