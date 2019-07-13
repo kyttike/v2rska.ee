@@ -1,10 +1,11 @@
 const axios = require('axios');
 const xmlReader = require('xml-reader');
 const xmlQuery = require('xml-query');
+const config = require('./config');
 
 let last5Temperatures = [];
 
-const deviceAddress = 'http://192.168.3.117:8100/status.xml';
+const deviceAddress = config.monitoringURL;
 
 const startMonitoring = (durationInSeconds = 60) => {
   getTemperatureData();
