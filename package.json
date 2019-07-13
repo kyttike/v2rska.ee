@@ -1,0 +1,22 @@
+{
+  "name": "v2rska.ee",
+  "version": "0.0.1",
+  "description": "Kasvuhoone ja värska temperatuur",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyttike/v2rska.ee.git"
+  },
+  "author": "kyttike",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kyttike/v2rska.ee/issues"
+  },
+  "homepage": "https://github.com/kyttike/v2rska.ee#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
