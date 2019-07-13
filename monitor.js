@@ -27,7 +27,7 @@ const getTemperatureData = () => {
         counter = 0;
       }
       realtimeTemperatures.push({
-        temperatures: currentTemp,
+        temperature: currentTemp,
         time: moment().format('YYYY-MM-DD HH:mm:ss'),
       });
       counter++;
