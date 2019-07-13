@@ -2,6 +2,8 @@ const axios = require('axios');
 const xmlReader = require('xml-reader');
 const xmlQuery = require('xml-query');
 const config = require('./config');
+const database = require('./database');
+const moment = require('moment');
 
 let realtimeTemperatures = [];
 
@@ -17,10 +19,24 @@ const getTemperatureData = () => {
     .then(response => {
       const parsedXml = xmlReader.parseSync(response.data);
       const currentTemp = Number(xmlQuery(parsedXml).find('Temperature1').text().split('&#176;')[0]) * 10;
+      writeTemperatureToDatabase(currentTemp);
       realtimeTemperatures.push(currentTemp);
       if (realtimeTemperatures.length > 5) {
         realtimeTemperatures = realtimeTemperatures.slice(1);
       }
+    })
+    .catch(error => console.warn(error));
+};
+
+const writeTemperatureToDatabase = (temperature) => {
+  database.getDatabaseConnection()
+    .then(conn => {
+
+      return conn.query('INSERT INTO temperature (id, datetime, temperature, location) VALUES (DEFAULT, ?, ?, ?);',
+        [moment().format('YYYY-MM-DD HH:mm:ss'), temperature, 'katel'])
+        .then(res => console.log(res))
+        .catch(error => console.warn(error))
+        .then(() => conn.end());
     })
     .catch(error => console.warn(error));
 };

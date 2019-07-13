@@ -1,6 +1,7 @@
 const express = require('express');
 const monitoring = require('./monitor');
 const router = express.Router();
+const database = require('./database');
 
 router.get('/temperature', (req, res) => {
   const temperatures = monitoring.getRealtimeTemperatures();
