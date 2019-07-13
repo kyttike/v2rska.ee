@@ -5,7 +5,7 @@ const express = require('express');
 const api = require('./api');
 const config = require('./config');
 
-monitoring.startMonitoring(30);
+monitoring.startMonitoring(config.monitoringFrequency);
 
 const app = express();
 app.use(express.static(__dirname + '/App'));
