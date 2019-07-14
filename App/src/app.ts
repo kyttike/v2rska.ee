@@ -29,7 +29,7 @@ export class App {
 
   drawGraph(data) {
     console.log(data.temperatures);
-    let temperatures = data.temperatures.filter((temp, i) => i % 5 == 4);
+    let temperatures = data.temperatures.length > 10 ? data.temperatures.filter((temp, i) => i % 5 == 4) : data.temperatures;
     this.chartData = {
       type: 'line',
       data: {
