@@ -8,7 +8,7 @@ const moment = require('moment');
 let realtimeTemperatures = [];
 
 const deviceAddress = config.monitoringURL;
-const totalWithSkips = 12;
+const totalWithSkips = config.databaseWritingFrequency;
 const realTimeDataMaxLength = 60;
 let counter = totalWithSkips;
 
