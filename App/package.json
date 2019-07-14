@@ -56,6 +56,7 @@
   ],
   "scripts": {
     "build": "au build",
+    "build-prod": "au build --env prod",
     "start": "au run",
     "test": "au test"
   },
