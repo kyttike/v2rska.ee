@@ -1,21 +1,30 @@
 <template>
   <require from="bulma/css/bulma.css"></require>
   <require from="@fortawesome/fontawesome-free/css/all.min.css"></require>
-  <section class="hero is-fullheight is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          <i class="fas fa-thermometer-three-quarters"></i> ${temperature}°C
-        </h1>
-        <h2 class="subtitle">
-        </h2>
+  <require from="components/chart-js-chart"></require>
+  <section class="section">
+    <div class="container">
+      <div class="tile is-ancestor">
+        <div class="tile is-4 is-vertical is-parent">
+          <div class="tile is-child box">
+            <p>Välitemperatuur:</p>
+            <h1 class="title">
+              <i class="fas fa-thermometer-three-quarters"></i> ${temperature}°C
+            </h1>
+          </div>
+        </div>
+        <div class="tile is-parent" if.bind="chartLoaded">
+          <div class="tile is-child box">
+            <chart-js-chart chart-options.bind="chartData"></chart-js-chart>
+          </div>
+        </div>
       </div>
     </div>
   </section>
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        Leht põhineb <strong><a href="https://aurelia.io/">Aurelial</a></strong> ja <strong><a href="https://bulma.io/">Bulmal</a></strong>
+        Leht põhineb <strong><a href="https://expressjs.com/">Expressil</a></strong>, <strong><a href="https://aurelia.io/">Aurelial</a></strong> ja <strong><a href="https://bulma.io/">Bulmal</a></strong>
         Lehe lähtekood on üleval <a href="https://github.com/kyttike/v2rska.ee">siin</a>.
       </p>
     </div>
