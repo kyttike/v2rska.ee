@@ -9,7 +9,7 @@ let realtimeTemperatures = [];
 
 const deviceAddress = config.monitoringURL;
 const totalWithSkips = config.databaseWritingFrequency;
-const realTimeDataMaxLength = 60;
+const realTimeDataMaxLength = 1440;
 let counter = totalWithSkips;
 
 const startMonitoring = (durationInSeconds = 60) => {
