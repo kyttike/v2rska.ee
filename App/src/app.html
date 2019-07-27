@@ -3,6 +3,7 @@
   <require from="@fortawesome/fontawesome-free/css/all.min.css"></require>
   <require from="components/chart-js-chart"></require>
   <section class="section">
+    <button class="button is-primary" click.delegate="test()">Test</button>
     <div class="container">
       <div class="tile is-ancestor">
         <div class="tile is-4 is-vertical is-parent">
@@ -15,7 +16,7 @@
         </div>
         <div class="tile is-parent" if.bind="chartLoaded">
           <div class="tile is-child box">
-            <chart-js-chart chart-options.bind="chartData"></chart-js-chart>
+            <chart-js-chart chart-name="test" chart-options.bind="chartData"></chart-js-chart>
           </div>
         </div>
       </div>

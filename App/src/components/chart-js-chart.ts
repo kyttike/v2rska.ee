@@ -1,14 +1,36 @@
-import {containerless, bindable} from 'aurelia-framework';
+import {inject, bindable} from 'aurelia-framework';
 import * as ChartJs from 'chart.js';
+import {EventAggregator, Subscription} from "aurelia-event-aggregator";
 
-@containerless()
+@inject(EventAggregator)
 export class ChartJsChart {
 
+  ea: EventAggregator;
+  chart: ChartJs;
+
+  constructor(ea) {
+    this.ea = ea;
+  }
+
   container; // from view
+  @bindable chartName;
   @bindable chartOptions;
 
+  updateSubscription: Subscription;
+
   attached() {
-    new ChartJs.Chart(this.container, this.chartOptions);
+    this.updateSubscription = this.ea.subscribe(`chart:${this.chartName}:update`, this.updateChart.bind(this));
+    this.chart = new ChartJs.Chart(this.container, this.chartOptions);
+  }
+
+  detached() {
+    this.updateSubscription.dispose();
+  }
+
+  updateChart(params) {
+    console.log(params, this.chartOptions);
+    this.chart.destroy();
+    this.chart = new ChartJs.Chart(this.container, this.chartOptions);
   }
 }
 

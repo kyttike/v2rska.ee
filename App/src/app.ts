@@ -1,35 +1,44 @@
 import {HttpClient} from "aurelia-fetch-client";
 import environment from './environment';
 import * as moment from "moment";
+import {EventAggregator} from "aurelia-event-aggregator";
+import {inject} from 'aurelia-framework';
 
+@inject(EventAggregator)
 export class App {
+
+  ea: EventAggregator;
+  api: HttpClient;
 
   temperature: string = 'Hetkeinfo ei ole kättesaadaval';
   chartData: any;
   chartLoaded: boolean = false;
 
-  activate() {
-    const client = new HttpClient();
-    const baseurl = environment.samePort ? '/api/' : 'http://localhost:3000/api/';
-    console.log(baseurl);
-    client.configure(config => {
-      config
-        .withBaseUrl(baseurl);
-    });
+  constructor(ea) {
+    this.ea = ea;
 
-    client.get('temperature')
+    this.api = new HttpClient();
+    this.api.configure(config => {
+      config
+        .withBaseUrl(environment.samePort ? '/api/' : 'http://localhost:3000/api/');
+    });
+    console.log(environment.samePort ? '/api/' : 'http://localhost:3000/api/');
+  }
+
+  activate() {
+    this.api.get('temperature')
       .then(result => result.json())
       .then(result => this.temperature = result.temperature / 10 + '')
       .catch(error => console.warn(error));
 
-    client.get('temperatures')
+    this.api.get('temperatures')
       .then(result => result.json())
       .then(result => this.drawGraph(result));
   }
 
   drawGraph(data) {
     console.log(data.temperatures);
-    let temperatures = data.temperatures.length > 10 ? data.temperatures.filter((temp, i) => i % 5 == 4) : data.temperatures;
+    let temperatures = data.temperatures.length > 10 ? data.temperatures.filter((temp, i) => i % 2 == 0) : data.temperatures;
     this.chartData = {
       type: 'line',
       data: {
@@ -40,6 +49,7 @@ export class App {
           borderColor: 'rgba(255,99,132,1)',
           backgroundColor: 'rgba(255,135,157,1)',
           borderWidth: 3,
+          pointRadius: 1,
           fill: false,
         }]
       },
@@ -57,5 +67,12 @@ export class App {
     };
     console.log(this.chartData);
     this.chartLoaded = true;
+  }
+
+  test() {
+    this.api.get('temperatures')
+      .then(result => result.json())
+      .then(result => this.drawGraph(result))
+      .then(() => this.ea.publish('chart:test:update', this.chartData ));
   }
 }
