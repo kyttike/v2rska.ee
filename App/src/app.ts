@@ -2,7 +2,7 @@ import {HttpClient} from "aurelia-fetch-client";
 import environment from './environment';
 import * as moment from "moment";
 import {EventAggregator} from "aurelia-event-aggregator";
-import {inject} from 'aurelia-framework';
+import {inject, observable} from 'aurelia-framework';
 
 @inject(EventAggregator)
 export class App {
@@ -13,6 +13,8 @@ export class App {
   temperature: string = 'Hetkeinfo ei ole kättesaadaval';
   chartData: any;
   chartLoaded: boolean = false;
+
+  @observable selectedPeriod: any;
 
   constructor(ea) {
     this.ea = ea;
@@ -30,10 +32,10 @@ export class App {
       .then(result => result.json())
       .then(result => this.temperature = result.temperature / 10 + '')
       .catch(error => console.warn(error));
+  }
 
-    this.api.get('temperatures')
-      .then(result => result.json())
-      .then(result => this.drawGraph(result));
+  attached() {
+
   }
 
   drawGraph(data) {
@@ -49,7 +51,7 @@ export class App {
           borderColor: 'rgba(255,99,132,1)',
           backgroundColor: 'rgba(255,135,157,1)',
           borderWidth: 3,
-          pointRadius: 1,
+          pointRadius: 0,
           fill: false,
         }]
       },
@@ -73,6 +75,11 @@ export class App {
     this.api.get('temperatures')
       .then(result => result.json())
       .then(result => this.drawGraph(result))
-      .then(() => this.ea.publish('chart:test:update', this.chartData ));
+      .then(() => this.ea.publish('chart:test:update'));
+  }
+
+  selectedPeriodChanged(oldValue, newValue) {
+    console.log(oldValue, newValue)
+    this.test();
   }
 }

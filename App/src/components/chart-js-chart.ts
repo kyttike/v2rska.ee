@@ -27,8 +27,7 @@ export class ChartJsChart {
     this.updateSubscription.dispose();
   }
 
-  updateChart(params) {
-    console.log(params, this.chartOptions);
+  updateChart() {
     this.chart.destroy();
     this.chart = new ChartJs.Chart(this.container, this.chartOptions);
   }

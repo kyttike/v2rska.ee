@@ -3,7 +3,6 @@
   <require from="@fortawesome/fontawesome-free/css/all.min.css"></require>
   <require from="components/chart-js-chart"></require>
   <section class="section">
-    <button class="button is-primary" click.delegate="test()">Test</button>
     <div class="container">
       <div class="tile is-ancestor">
         <div class="tile is-4 is-vertical is-parent">
@@ -16,6 +15,17 @@
         </div>
         <div class="tile is-parent" if.bind="chartLoaded">
           <div class="tile is-child box">
+            <div class="field">
+              <div class="control is-expanded">
+                <div class="select is-fullwidth">
+                  <select name="period" value.bind="selectedPeriod">
+                    <option value="hour">Viimane tund</option>
+                    <option value="day">Viimane päev</option>
+                    <option value="week">Viimane nädal</option>
+                  </select>
+                </div>
+              </div>
+            </div>
             <chart-js-chart chart-name="test" chart-options.bind="chartData"></chart-js-chart>
           </div>
         </div>
