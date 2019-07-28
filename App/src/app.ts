@@ -94,8 +94,8 @@ export class App {
         },
       },
     };
+    if (this.chartLoaded) this.ea.publish('chart:mainGraph:update', this.chartData);  
     this.chartLoaded = true;
-    this.ea.publish('chart:mainGraph:update', this.chartData)
   }
 
   selectedPeriodChanged() {
