@@ -19,14 +19,12 @@
               <div class="control is-expanded">
                 <div class="select is-fullwidth">
                   <select name="period" value.bind="selectedPeriod">
-                    <option value="hour">Viimane tund</option>
-                    <option value="day">Viimane päev</option>
-                    <option value="week">Viimane nädal</option>
+                    <option model.bind="period" repeat.for="period of periods">${period.display}</option>
                   </select>
                 </div>
               </div>
             </div>
-            <chart-js-chart chart-name="test" chart-options.bind="chartData"></chart-js-chart>
+            <chart-js-chart chart-name="mainGraph" chart-options.bind="chartData"></chart-js-chart>
           </div>
         </div>
       </div>

@@ -11,20 +11,41 @@ export class App {
   api: HttpClient;
 
   temperature: string = 'Hetkeinfo ei ole kättesaadaval';
+  temperatureData: any[];
   chartData: any;
   chartLoaded: boolean = false;
 
+  periods: any[] = [
+    {
+      filterNumber: 5,
+      dataPointsCount: 60,
+      display: 'Viimane tund',
+    },
+    {
+      filterNumber: 10,
+      dataPointsCount: 720,
+      display: 'Viimased 12 tundi'
+    },
+    {
+      filterNumber: 10,
+      dataPointsCount: 1440,
+      display: 'Viimased 24 tundi',
+    },
+  ];
   @observable selectedPeriod: any;
 
   constructor(ea) {
     this.ea = ea;
 
     this.api = new HttpClient();
+    let baseUrl = environment.samePort ? '/api/' : 'http://localhost:3000/api/';
+
+    baseUrl = 'http://värska.ee/api/';
+
     this.api.configure(config => {
       config
-        .withBaseUrl(environment.samePort ? '/api/' : 'http://localhost:3000/api/');
+        .withBaseUrl(baseUrl);
     });
-    console.log(environment.samePort ? '/api/' : 'http://localhost:3000/api/');
   }
 
   activate() {
@@ -32,15 +53,21 @@ export class App {
       .then(result => result.json())
       .then(result => this.temperature = result.temperature / 10 + '')
       .catch(error => console.warn(error));
+
+    return this.api.get('temperatures')
+      .then(result => result.json())
+      .then(result => this.temperatureData = result.temperatures)
+      .catch(error => console.warn(error));
   }
 
   attached() {
-
+    this.selectedPeriod = this.periods[0];
   }
 
-  drawGraph(data) {
-    console.log(data.temperatures);
-    let temperatures = data.temperatures.length > 10 ? data.temperatures.filter((temp, i) => i % 2 == 0) : data.temperatures;
+  calculateGraphData() {
+    let temperatures = this.temperatureData;
+    temperatures = temperatures.slice(Math.max(temperatures.length - this.selectedPeriod.dataPointsCount, 0));
+    temperatures = temperatures.filter((temp, i) => i % (this.selectedPeriod.filterNumber - 1) == 0);
     this.chartData = {
       type: 'line',
       data: {
@@ -67,19 +94,11 @@ export class App {
         },
       },
     };
-    console.log(this.chartData);
     this.chartLoaded = true;
+    this.ea.publish('chart:mainGraph:update', this.chartData)
   }
 
-  test() {
-    this.api.get('temperatures')
-      .then(result => result.json())
-      .then(result => this.drawGraph(result))
-      .then(() => this.ea.publish('chart:test:update'));
-  }
-
-  selectedPeriodChanged(oldValue, newValue) {
-    console.log(oldValue, newValue)
-    this.test();
+  selectedPeriodChanged() {
+    this.calculateGraphData();
   }
 }
