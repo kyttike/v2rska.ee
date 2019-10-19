@@ -83,30 +83,35 @@ export class App {
     let temperatures = this.temperatureData;
     temperatures = temperatures.slice(Math.max(temperatures.length - this.selectedPeriod.dataPointsCount, 0));
     temperatures = temperatures.filter((temp, i) => i % (this.selectedPeriod.filterNumber - 1) == 0);
+    const data1 = {
+      label: 'Välistemperatuur',
+      data: temperatures.map(e => e.temp1 / 10),
+      borderColor: 'rgba(255,99,132,1)',
+      backgroundColor: 'rgba(255,135,157,1)',
+      borderWidth: 3,
+      pointRadius: 0,
+      fill: false,
+    };
+    const data2 =           {
+      label: 'Kasvuhoone',
+      data: temperatures.map(e => e.temp2 / 10),
+      borderColor: 'rgb(0,215,144)',
+      backgroundColor: 'rgb(0,232,157)',
+      borderWidth: 3,
+      pointRadius: 0,
+      fill: false,
+    };
+
     this.chartData = {
       type: 'line',
       data: {
         labels: temperatures.map(e => moment(e.time).format('HH:mm')),
-        datasets: [
-          {
-            label: 'Temperatuur 1',
-            data: temperatures.map(e => e.temp1 / 10),
-            borderColor: 'rgba(255,99,132,1)',
-            backgroundColor: 'rgba(255,135,157,1)',
-            borderWidth: 3,
-            pointRadius: 0,
-            fill: false,
-          },
-          {
-            label: 'Temperatuur 2',
-            data: temperatures.map(e => e.temp2 / 10),
-            borderColor: 'rgb(0,215,144)',
-            backgroundColor: 'rgb(0,232,157)',
-            borderWidth: 3,
-            pointRadius: 0,
-            fill: false,
-          },
-        ]
+        datasets: this.showTemp2 ? [
+          data1,
+          data2,
+        ] : [
+          data1
+        ],
       },
       options: {
         responsive: true,
