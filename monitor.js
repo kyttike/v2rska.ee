@@ -21,13 +21,19 @@ const getTemperatureData = () => {
   return axios.get(deviceAddress)
     .then(response => {
       const parsedXml = xmlReader.parseSync(response.data);
-      const currentTemp = Number(xmlQuery(parsedXml).find('Temperature1').text().split('&#176;')[0]) * 10;
+      let temp1 = Number(xmlQuery(parsedXml).find('Temperature1').text().split('&#176;')[0]) * 10;
+      let temp2 = Number(xmlQuery(parsedXml).find('Temperature2').text().split('&#176;')[0]) * 10;
+      temp1 = transformTemperature1(temp1);
+      temp2 = transformTemperature2(temp2);
+
       if (counter >= totalWithSkips) {
-        writeTemperatureToDatabase(currentTemp);
+        writeTemperatureToDatabase(temp1, 'temp1');
+        writeTemperatureToDatabase(temp2, 'temp2');
         counter = 0;
       }
       realtimeTemperatures.push({
-        temperature: currentTemp,
+        temp1,
+        temp2,
         time: moment().format('YYYY-MM-DD HH:mm:ss'),
       });
       counter++;
@@ -38,12 +44,15 @@ const getTemperatureData = () => {
     .catch(error => console.warn(error));
 };
 
-const writeTemperatureToDatabase = (temperature) => {
+const transformTemperature1 = (oldTemp) => oldTemp - 15;
+const transformTemperature2 = (oldTemp) => oldTemp;
+
+const writeTemperatureToDatabase = (temperature, label) => {
   database.getDatabaseConnection()
     .then(conn => {
 
       return conn.query('INSERT INTO temperature (id, datetime, temperature, location) VALUES (DEFAULT, ?, ?, ?);',
-        [moment().format('YYYY-MM-DD HH:mm:ss'), temperature, 'katel'])
+        [moment().format('YYYY-MM-DD HH:mm:ss'), temperature, label])
         .then(res => console.log(res))
         .catch(error => console.warn(error))
         .then(() => conn.end());
