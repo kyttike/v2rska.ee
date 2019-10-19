@@ -11,6 +11,7 @@ export class App {
   api: HttpClient;
 
   temperature: string = 'Hetkeinfo ei ole kättesaadaval';
+  temperature2: string = 'Seda pole ka hetkel olemas';
   temperatureData: any[];
   chartData: any;
   chartLoaded: boolean = false;
@@ -32,6 +33,9 @@ export class App {
       display: 'Viimased 24 tundi',
     },
   ];
+
+  showTemp2 = false;
+
   @observable selectedPeriod: any;
 
   constructor(ea) {
@@ -46,10 +50,23 @@ export class App {
     });
   }
 
-  activate() {
+  activate(params) {
+    if (window.location.search.indexOf('andres') > 0) {
+      document.cookie = "showTemp2=true; expires=Fri, 31 Dec 9999 23:59:59 GMT"
+    }
+
+    if (document.cookie.split(';').filter(function(item) {
+      return item.trim().indexOf('showTemp2=') == 0
+    }).length) {
+      this.showTemp2 = true;
+    }
+
     this.api.get('temperature')
       .then(result => result.json())
-      .then(result => this.temperature = result.temperature / 10 + '')
+      .then(result => {
+        this.temperature = result.temp1 / 10 + '';
+        this.temperature2 = result.temp2 / 10 + '';
+      })
       .catch(error => console.warn(error));
 
     return this.api.get('temperatures')
@@ -70,15 +87,26 @@ export class App {
       type: 'line',
       data: {
         labels: temperatures.map(e => moment(e.time).format('HH:mm')),
-        datasets: [{
-          label: 'Temperatuur',
-          data: temperatures.map(e => e.temperature / 10),
-          borderColor: 'rgba(255,99,132,1)',
-          backgroundColor: 'rgba(255,135,157,1)',
-          borderWidth: 3,
-          pointRadius: 0,
-          fill: false,
-        }]
+        datasets: [
+          {
+            label: 'Temperatuur 1',
+            data: temperatures.map(e => e.temp1 / 10),
+            borderColor: 'rgba(255,99,132,1)',
+            backgroundColor: 'rgba(255,135,157,1)',
+            borderWidth: 3,
+            pointRadius: 0,
+            fill: false,
+          },
+          {
+            label: 'Temperatuur 2',
+            data: temperatures.map(e => e.temp2 / 10),
+            borderColor: 'rgb(0,215,144)',
+            backgroundColor: 'rgb(0,232,157)',
+            borderWidth: 3,
+            pointRadius: 0,
+            fill: false,
+          },
+        ]
       },
       options: {
         responsive: true,
@@ -92,7 +120,7 @@ export class App {
         },
       },
     };
-    if (this.chartLoaded) this.ea.publish('chart:mainGraph:update', this.chartData);  
+    if (this.chartLoaded) this.ea.publish('chart:mainGraph:update', this.chartData);
     this.chartLoaded = true;
   }
 
