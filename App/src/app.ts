@@ -19,8 +19,8 @@ export class App {
   periods: any[] = [
     {
       filterNumber: 5,
-      dataPointsCount: 60,
-      display: 'Viimane tund',
+      dataPointsCount: 360,
+      display: 'Viimased 6 tundi',
     },
     {
       filterNumber: 10,
