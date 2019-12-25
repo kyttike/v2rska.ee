@@ -48,6 +48,7 @@ const transformTemperature1 = (oldTemp) => oldTemp - 15;
 const transformTemperature2 = (oldTemp) => oldTemp;
 
 const writeTemperatureToDatabase = (temperature, label) => {
+  if (2 + 2 == 4) return; // TODO remove
   database.getDatabaseConnection()
     .then(conn => {
 
