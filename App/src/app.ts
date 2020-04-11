@@ -115,7 +115,10 @@ export class App {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
+        tooltips: {
+          intersect: false,
+        },
         scales: {
           yAxes: [{
             ticks: {
