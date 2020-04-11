@@ -39,8 +39,8 @@
     "gulp-tslint": "^8.1.4",
     "gulp-typescript": "^5.0.0",
     "gulp-watch": "^5.0.1",
-    "jest": "^24.1.0",
-    "jest-cli": "^24.1.0",
+    "jest": "^25.3.0",
+    "jest-cli": "^25.3.0",
     "jest-transform-stub": "^2.0.0",
     "minimatch": "^3.0.4",
     "promise-polyfill": "^8.1.0",
@@ -48,8 +48,8 @@
     "systemjs-plugin-text": "^0.0.11",
     "through2": "^3.0.0",
     "ts-jest": "^24.0.0",
-    "tslint": "^5.13.0",
-    "typescript": "^3.1.2",
+    "tslint": "^6.1.1",
+    "typescript": "^3.8.3",
     "vinyl-fs": "^3.0.3"
   },
   "browserslist": [
