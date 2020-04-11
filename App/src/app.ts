@@ -118,6 +118,7 @@ export class App {
         maintainAspectRatio: false,
         tooltips: {
           intersect: false,
+          mode: 'index',
         },
         scales: {
           yAxes: [{
