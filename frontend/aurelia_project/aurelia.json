@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "test",
   "type": "project:application",
   "paths": {
     "root": "src",
@@ -36,6 +36,8 @@
   },
   "platform": {
     "port": 9000,
+    "host": "localhost",
+    "open": false,
     "index": "index.html",
     "baseDir": ".",
     "output": "scripts"
@@ -52,7 +54,7 @@
     "options": {
       "minify": "stage & prod",
       "sourcemaps": "dev & stage",
-      "rev": false,
+      "rev": "prod",
       "cache": "dev & stage"
     },
     "bundles": [
@@ -66,7 +68,7 @@
         "name": "vendor-bundle.js",
         "prepend": [
           "node_modules/promise-polyfill/dist/polyfill.min.js",
-          "node_modules/systemjs/dist/system.js"
+          "node_modules/requirejs/require.js"
         ],
         "dependencies": [
           "aurelia-bootstrapper",
@@ -76,19 +78,12 @@
             "name": "aurelia-testing",
             "env": "dev"
           },
-          {
-            "name": "text",
-            "path": "../node_modules/systemjs-plugin-text",
-            "main": "text"
-          }
+          "text"
         ]
       }
     ],
-    "copyFiles": {
-      "node_modules/@fortawesome/fontawesome-free/webfonts/*": "@fortawesome/fontawesome-free/webfonts"
-    },
     "loader": {
-      "type": "system",
+      "type": "require",
       "configTarget": "vendor-bundle.js",
       "includeBundleMetadataInConfig": "auto",
       "plugins": [
@@ -102,6 +97,5 @@
         }
       ]
     }
-  },
-  "packageManager": "npm"
+  }
 }

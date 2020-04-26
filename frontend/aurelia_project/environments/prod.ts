@@ -1,5 +1,4 @@
 export default {
   debug: false,
-  testing: false,
-  samePort: true,
+  testing: false
 };

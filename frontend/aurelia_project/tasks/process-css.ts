@@ -6,7 +6,7 @@ import * as postcss from 'gulp-postcss';
 import * as autoprefixer from 'autoprefixer';
 
 export default function processCSS() {
-  return gulp.src(project.cssProcessor.source, {sourcemaps: true, since: gulp.lastRun(processCSS)})
+  return gulp.src(project.cssProcessor.source, {sourcemaps: true})
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([
       autoprefixer()

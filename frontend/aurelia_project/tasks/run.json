@@ -13,6 +13,11 @@
       "type": "boolean"
     },
     {
+      "name": "host",
+      "description": "Set host address of the dev server, the accessible URL",
+      "type": "string"
+    },
+    {
       "name": "port",
       "description": "Set port number of the dev server",
       "type": "string"
