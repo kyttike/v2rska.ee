@@ -42,7 +42,7 @@ export class App {
     this.ea = ea;
 
     this.api = new HttpClient();
-    let baseUrl = environment.samePort ? '/api/' : 'http://localhost:3000/api/';
+    let baseUrl = 'https://värska.ee/api/';
 
     this.api.configure(config => {
       config

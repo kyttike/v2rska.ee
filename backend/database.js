@@ -10,7 +10,7 @@ let dbConfig = {
   connectionLimit: 5,
 };
 
-const pool = mariadb.createPool(dbConfig);
+// const pool = mariadb.createPool(dbConfig);
 
 /*
  add support for socketPath, if socketPath is in conf, use that instead of hostname
