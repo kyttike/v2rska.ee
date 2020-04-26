@@ -1,0 +1,55 @@
+{
+  "name": "v2rska.ee",
+  "description": "An Aurelia client application.",
+  "version": "0.1.0",
+  "repository": {
+    "type": "???",
+    "url": "???"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "aurelia-animator-css": "^1.0.4",
+    "aurelia-bootstrapper": "^2.3.2",
+    "aurelia-event-aggregator": "^1.0.3",
+    "aurelia-fetch-client": "^1.8.2",
+    "chart.js": "^2.9.3"
+  },
+  "devDependencies": {
+    "@types/chart.js": "^2.9.19",
+    "@types/node": "^10.11.6",
+    "aurelia-cli": "^1.0.2",
+    "aurelia-testing": "^1.0.0",
+    "aurelia-tools": "^2.0.0",
+    "autoprefixer": "^9.4.8",
+    "browser-sync": "^2.26.3",
+    "connect-history-api-fallback": "^1.6.0",
+    "debounce": "^1.2.0",
+    "gulp": "^4.0.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-tslint": "^8.1.4",
+    "gulp-typescript": "^5.0.0",
+    "gulp-watch": "^5.0.1",
+    "minimatch": "^3.0.4",
+    "promise-polyfill": "^8.1.0",
+    "requirejs": "^2.3.6",
+    "text": "requirejs/text#latest",
+    "through2": "^3.0.0",
+    "tslint": "^5.13.0",
+    "typescript": "^3.8.3",
+    "vinyl-fs": "^3.0.3"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "scripts": {
+    "build": "au build",
+    "start": "au run"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  }
+}
