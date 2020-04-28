@@ -40,7 +40,8 @@
     "open": false,
     "index": "index.html",
     "baseDir": ".",
-    "output": "scripts"
+    "output": "dist/scripts",
+    "baseUrl": "dist/scripts"
   },
   "build": {
     "targets": [
@@ -48,7 +49,8 @@
         "port": 9000,
         "index": "index.html",
         "baseDir": ".",
-        "output": "scripts"
+        "output": "dist/scripts",
+        "baseUrl": "dist/scripts"
       }
     ],
     "options": {
