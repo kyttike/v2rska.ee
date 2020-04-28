@@ -1,3 +1,4 @@
 export default {
-  minify: false,
+  name: 'dev',
+  analytics: false,
 };

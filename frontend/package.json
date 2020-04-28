@@ -12,6 +12,7 @@
     "aurelia-bootstrapper": "^2.3.2",
     "aurelia-event-aggregator": "^1.0.3",
     "aurelia-fetch-client": "^1.8.2",
+    "aurelia-google-tag-manager": "github:sondr/aurelia-google-tag-manager",
     "chart.js": "^2.9.3"
   },
   "devDependencies": {
@@ -49,7 +50,7 @@
     "defaults"
   ],
   "scripts": {
-    "build": "au build",
+    "build": "au build --env prod",
     "start": "au run"
   },
   "engines": {

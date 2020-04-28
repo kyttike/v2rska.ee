@@ -1,4 +1,4 @@
-import {build} from 'aurelia-cli';
+import {build, CLIOptions} from 'aurelia-cli';
 import * as gulp from 'gulp';
 import * as project from '../aurelia.json';
 import * as sass from 'gulp-sass';
@@ -22,7 +22,7 @@ export default function processCSS() {
     .pipe(postcss([
       tailwindcss(),
       autoprefixer(),
-      ...environment.minify
+      ...CLIOptions.getEnvironment() == 'prod'
         ? [purgecss]
         : []
     ]))

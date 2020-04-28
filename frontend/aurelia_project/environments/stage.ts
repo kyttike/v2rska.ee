@@ -1,4 +1,4 @@
 export default {
-  name: 'prod',
+  name: 'stage',
   analytics: true,
 };
