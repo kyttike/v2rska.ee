@@ -84,6 +84,9 @@
         ]
       }
     ],
+    "copyFiles": {
+      "src/static/**/*": "dist/static"
+    },
     "loader": {
       "type": "require",
       "configTarget": "vendor-bundle.js",

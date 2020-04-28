@@ -1,5 +1,4 @@
 import {HttpClient} from "aurelia-fetch-client";
-import environment from './environment';
 import * as moment from "moment";
 import {EventAggregator} from "aurelia-event-aggregator";
 import {inject, observable} from 'aurelia-framework';
@@ -55,7 +54,7 @@ export class App {
       document.cookie = "showTemp2=true; expires=Fri, 31 Dec 9999 23:59:59 GMT"
     }
 
-    if (document.cookie.split(';').filter(function(item) {
+    if (document.cookie.split(';').filter(function (item) {
       return item.trim().indexOf('showTemp2=') == 0
     }).length) {
       this.showTemp2 = true;
@@ -92,7 +91,7 @@ export class App {
       pointRadius: 0,
       fill: false,
     };
-    const data2 =           {
+    const data2 = {
       label: 'Kasvuhoone',
       data: temperatures.map(e => e.temp2 / 10),
       borderColor: 'rgb(0,215,144)',
@@ -119,6 +118,7 @@ export class App {
         tooltips: {
           intersect: false,
           mode: 'index',
+          position: 'nearest',
         },
         scales: {
           yAxes: [{
