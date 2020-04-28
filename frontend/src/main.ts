@@ -10,7 +10,7 @@ export function configure(aurelia: Aurelia) {
     aurelia.use.plugin('aurelia-google-tag-manager', (instance: TagManager) => {
       return instance.init('UA-144729628-1',);
     });
-  };
+  }
 
   aurelia.start().then(() => aurelia.setRoot());
 }
