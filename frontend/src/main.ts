@@ -1,6 +1,7 @@
 import {Aurelia} from 'aurelia-framework'
 import {TagManager} from 'aurelia-google-tag-manager';
 import environment from "./environment";
+import 'aurelia-google-tag-manager';
 
 export function configure(aurelia: Aurelia) {
   aurelia.use
