@@ -9,7 +9,7 @@ export function configure(aurelia: Aurelia) {
 
   if (environment.analytics) {
     aurelia.use.plugin('aurelia-google-tag-manager', (instance: TagManager) => {
-      return instance.init('UA-144729628-1',);
+      return instance.init('GTM-TXV7Z9N',);
     });
   }
 
