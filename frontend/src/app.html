@@ -3,16 +3,16 @@
   <require from="components/chart-js-chart"></require>
   <section>
     <div class="container mx-auto sm:mt-24 sm:p-8 p-4 bg-white sm:rounded-lg shadow">
-      <h1 class="text-3xl font-semibold mb-4">Ilm Värskas reaalajas</h1>
-      <div class="sm:flex">
-        <div class="border rounded py-4 px-6">
+      <h1 class="text-3xl font-semibold">Ilm Värskas reaalajas</h1>
+      <div class="sm:flex mb-4">
+        <div class="pr-6">
           <p>Välistemperatuur:</p>
           <h1 class="text-3xl font-semibold flex">
             <img class="inline h-10 w-10" src="dist/static/svg/thermometer.svg" alt="Termomeeter">
             <span>${temperature}°C</span>
           </h1>
         </div>
-        <div class="border rounded py-4 px-6 sm:ml-4 mt-4 sm:mt-0" if.bind="showTemp2">
+        <div class="pr-6 sm:ml-4 mt-4 sm:mt-0" if.bind="showTemp2">
           <p>Kasvuhoone:</p>
           <h1 class="text-3xl font-semibold flex">
             <img class="inline h-10 w-10" src="dist/static/svg/thermometer.svg" alt="Termomeeter">
@@ -25,6 +25,9 @@
           <option model.bind="period" repeat.for="period of periods">${period.display}</option>
         </select>
         <chart-js-chart chart-name="mainGraph" chart-options.bind="chartData"></chart-js-chart>
+      </div>
+      <div class="mt-4">
+        <img src="dist/static/img/image.jpg">
       </div>
     </div>
   </section>
