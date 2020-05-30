@@ -14,6 +14,7 @@ export class App {
   temperatureData: any[];
   chartData: any;
   chartLoaded: boolean = false;
+  showImage: boolean = false;
 
   periods: any[] = [
     {
@@ -76,6 +77,9 @@ export class App {
 
   attached() {
     this.selectedPeriod = this.periods[0];
+    const temporaryApi = new HttpClient();
+    temporaryApi.get('/dist/static/img/image.jpg')
+      .then(res => this.showImage = res.ok)
   }
 
   calculateGraphData() {

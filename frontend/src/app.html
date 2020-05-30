@@ -26,7 +26,13 @@
         </select>
         <chart-js-chart chart-name="mainGraph" chart-options.bind="chartData"></chart-js-chart>
       </div>
-      <div class="mt-4">
+      <div class="mt-16">
+        <iframe
+          src="https://www.yr.no/place/Estonia/P%c3%b5lvamaa/V%c3%a4rska/external_box_hour_by_hour.html"
+          style="width: 100%; max-width: 850px; height: 450px">
+        </iframe>
+      </div>
+      <div class="mt-4" if.bind="showImage">
         <img src="dist/static/img/image.jpg">
       </div>
     </div>
