@@ -1,47 +1,40 @@
 <template>
-  <require from="bulma/css/bulma.css"></require>
-  <require from="@fortawesome/fontawesome-free/css/all.min.css"></require>
+  <require from="styles/main.css"></require>
   <require from="components/chart-js-chart"></require>
-  <section class="section">
-    <div class="container">
-      <div class="tile is-ancestor">
-        <div class="tile is-parent">
-          <h1 class="title is-4 has-text-centered">Ilm Värskas reaalajas</h1>
+  <section>
+    <div class="container mx-auto sm:mt-24 sm:p-8 p-4 bg-white sm:rounded-lg shadow">
+      <h1 class="text-3xl font-semibold">Ilm Värskas reaalajas</h1>
+      <div class="sm:flex mb-4">
+        <div class="pr-6">
+          <p>Välistemperatuur:</p>
+          <h1 class="text-3xl font-semibold flex">
+            <img class="inline h-10 w-10" src="dist/static/svg/thermometer.svg" alt="Termomeeter">
+            <span>${temperature}°C</span>
+          </h1>
+        </div>
+        <div class="pr-6 sm:ml-4 mt-4 sm:mt-0" if.bind="showTemp2">
+          <p>Kasvuhoone:</p>
+          <h1 class="text-3xl font-semibold flex">
+            <img class="inline h-10 w-10" src="dist/static/svg/thermometer.svg" alt="Termomeeter">
+            <span>${temperature2}°C</span>
+          </h1>
         </div>
       </div>
-      <div class="tile is-ancestor">
-        <div class="tile is-4 is-vertical is-parent">
-          <div class="tile is-child box">
-            <p>Välistemperatuur:</p>
-            <h1 class="title">
-              <i class="fas fa-thermometer-three-quarters"></i> ${temperature}°C
-            </h1>
-          </div>
-          <div class="tile is-child box" if.bind="showTemp2">
-            <p>Kasvuhoone:</p>
-            <h1 class="title">
-              <i class="fas fa-thermometer-three-quarters"></i> ${temperature2}°C
-            </h1>
-          </div>
-        </div>
-        <div class="tile is-parent" if.bind="chartLoaded">
-          <div class="tile is-child box">
-            <div class="field">
-              <div class="control is-expanded">
-                <div class="select is-fullwidth">
-                  <select name="period" value.bind="selectedPeriod">
-                    <option model.bind="period" repeat.for="period of periods">${period.display}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <chart-js-chart chart-name="mainGraph" chart-options.bind="chartData"></chart-js-chart>
-          </div>
-        </div>
+      <div class="mt-4">
+        <select class="form-select w-full mb-2" name="period" value.bind="selectedPeriod">
+          <option model.bind="period" repeat.for="period of periods">${period.display}</option>
+        </select>
+        <chart-js-chart chart-name="mainGraph" chart-options.bind="chartData"></chart-js-chart>
+      </div>
+      <div class="mt-16">
+        <iframe
+          src="https://www.yr.no/place/Estonia/P%c3%b5lvamaa/V%c3%a4rska/external_box_hour_by_hour.html"
+          style="width: 100%; max-width: 850px; height: 450px">
+        </iframe>
+      </div>
+      <div class="mt-4" if.bind="showImage">
+        <img src="dist/static/img/image.jpg">
       </div>
     </div>
   </section>
-  <!--
-  <compose view="footer.html"></compose>
-  -->
 </template>

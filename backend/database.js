@@ -17,6 +17,7 @@ let dbConfig = {
  */
 
 const getDatabaseConnection = () => {
+  console.log('getDatabaseConnection', `jdbc:mariadb://${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`);
   return pool.getConnection();
 };
 

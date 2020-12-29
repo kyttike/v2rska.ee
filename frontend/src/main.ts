@@ -1,15 +1,16 @@
 import {Aurelia} from 'aurelia-framework'
-import environment from './environment';
+import {TagManager} from 'aurelia-google-tag-manager';
+import environment from "./environment";
+import 'aurelia-google-tag-manager';
 
 export function configure(aurelia: Aurelia) {
   aurelia.use
-    .standardConfiguration()
-    .feature('resources');
+    .standardConfiguration();
 
-  aurelia.use.developmentLogging(environment.debug ? 'debug' : 'warn');
-
-  if (environment.testing) {
-    aurelia.use.plugin('aurelia-testing');
+  if (environment.analytics) {
+    aurelia.use.plugin('aurelia-google-tag-manager', (instance: TagManager) => {
+      return instance.init('GTM-TXV7Z9N',);
+    });
   }
 
   aurelia.start().then(() => aurelia.setRoot());
