@@ -90,6 +90,7 @@ export class App {
     let temperatures = this.temperatureData;
     temperatures = temperatures.slice(Math.max(temperatures.length - this.selectedPeriod.dataPointsCount, 0));
     temperatures = temperatures.filter((temp, i) => i % (this.selectedPeriod.filterNumber - 1) == 0);
+    let calculateNewGradient = true;
     const data1: ChartJs.ChartDataSets = {
       label: 'Välistemperatuur',
       data: temperatures.map(e => e.temp1 / 10),
@@ -102,11 +103,14 @@ export class App {
         const chartWidth = chartArea.right - chartArea.left;
         const chartHeight = chartArea.bottom - chartArea.top;
 
-        if (this.gradient === null || this.gradientWidth !== chartWidth || this.gradientHeight !== chartHeight) {
+        if (this.gradient === null
+          || this.gradientWidth !== chartWidth
+          || this.gradientHeight !== chartHeight
+          || calculateNewGradient
+        ) {
+          calculateNewGradient = false;
           this.gradientWidth = chartWidth;
           this.gradientHeight = chartHeight;
-
-          console.log(context)
 
           let colorChangeOffset = 0.5;
           const yScale: any = context.chart['scales']['y-axis-0'];
@@ -118,7 +122,6 @@ export class App {
           } else if (yScale.end <= 0) {
             colorChangeOffset = 1
           }
-        console.log(colorChangeOffset)
 
           this.gradient = context.chart.ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
           this.gradient.addColorStop(1, 'rgba(255,99,132,1)',)
@@ -130,7 +133,7 @@ export class App {
         return this.gradient;
       },
       backgroundColor: 'rgba(255,135,157,1)',
-      borderWidth: 3,
+      borderWidth: 2,
       pointRadius: 0,
       fill: false,
     };
