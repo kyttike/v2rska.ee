@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/kyttike/v2rska.ee#readme",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "express": "^4.17.1",
     "mariadb": "^2.1.0",
     "moment": "^2.24.0",
